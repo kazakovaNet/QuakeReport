@@ -6,9 +6,9 @@ package com.example.android.quakereport;
 public class Earthquake {
     private double magnitude;
     private String place;
-    private String time;
+    private long time;
     
-    Earthquake(double magnitude, String place, String time) {
+    Earthquake(double magnitude, String place, long time) {
         this.magnitude = magnitude;
         this.place = place;
         this.time = time;
@@ -22,7 +22,7 @@ public class Earthquake {
         return place;
     }
     
-    public String getDate() {
+    public long getDate() {
         return time;
     }
 }

@@ -20,11 +20,18 @@
         android:layout_weight="1"
         tools:text="San-Francisco" />
 
-    <TextView
-        android:id="@+id/date_text_view"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:text="Feb 02, 2016" />
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="Feb 02, 2016" />
+    </LinearLayout>
+
 
 </LinearLayout>

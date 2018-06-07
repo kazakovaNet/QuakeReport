@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Kazakova_net on 06.06.2018.
@@ -29,15 +32,19 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.earthquake_list_item, parent, false);
         }
 
-        TextView magnitudeTextView = (TextView) listItemView.findViewById(R.id.magnitude_text_view);
-        TextView placeTextView = (TextView) listItemView.findViewById(R.id.place_text_view);
-        TextView dateTextView = (TextView) listItemView.findViewById(R.id.date_text_view);
+        TextView magnitudeTextView = listItemView.findViewById(R.id.magnitude_text_view);
+        TextView placeTextView = listItemView.findViewById(R.id.place_text_view);
+        TextView dateTextView = listItemView.findViewById(R.id.date_text_view);
 
         Earthquake earthquake = getItem(position);
         if (earthquake != null) {
             magnitudeTextView.setText(String.valueOf(earthquake.getMagnitude()));
             placeTextView.setText(earthquake.getPlace());
-            dateTextView.setText(String.valueOf(earthquake.getDate()));
+            
+            Date earthquakeDate = new Date(earthquake.getDate());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, YYYY", Locale.getDefault());
+            
+            dateTextView.setText(simpleDateFormat.format(earthquakeDate));
         }
 
         return listItemView;
