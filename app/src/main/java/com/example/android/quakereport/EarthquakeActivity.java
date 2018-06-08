@@ -41,7 +41,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
         
         // Create a new {@link ArrayAdapter} of earthquakeArrayList
-        EarthquakeArrayAdapter earthquakeArrayAdapter = new EarthquakeArrayAdapter(EarthquakeActivity.this, earthquakeArrayList);
+        final EarthquakeArrayAdapter earthquakeArrayAdapter = new EarthquakeArrayAdapter(EarthquakeActivity.this, earthquakeArrayList);
         
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
@@ -50,11 +50,16 @@ public class EarthquakeActivity extends AppCompatActivity {
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Earthquake earthquake = earthquakeArrayList.get(position);
-                
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(earthquake.getUrl()));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                
+                Earthquake earthquake = earthquakeArrayAdapter.getItem(position);
+    
+                Intent intent = null;
+                if (earthquake != null) {
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(earthquake.getUrl()));
+                }
+                if (intent != null) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+    
                 startActivity(intent);
             }
         });
