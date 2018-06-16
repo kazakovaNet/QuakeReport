@@ -17,15 +17,16 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by Kazakova_net on 06.06.2018.
  */
-public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
+public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private static final String LOCATION_SEPARATOR = " of ";
     
-    public EarthquakeArrayAdapter(@NonNull Activity context, @NonNull ArrayList<Earthquake> earthquakes) {
+    public EarthquakeAdapter(@NonNull Activity context, @NonNull List<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
     
