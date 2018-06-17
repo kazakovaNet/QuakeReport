@@ -1,9 +1,7 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -25,11 +22,11 @@ import java.util.Locale;
  */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private static final String LOCATION_SEPARATOR = " of ";
-    
+
     public EarthquakeAdapter(@NonNull Activity context, @NonNull List<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
-    
+
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -37,13 +34,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.earthquake_list_item, parent, false);
         }
-        
+
         TextView magnitudeTextView = listItemView.findViewById(R.id.magnitude);
         TextView locationOffsetTextView = listItemView.findViewById(R.id.location_offset);
         TextView primaryLocationTextView = listItemView.findViewById(R.id.primary_location);
         TextView dateTextView = listItemView.findViewById(R.id.date);
         TextView timeTextView = listItemView.findViewById(R.id.time);
-        
+
         Earthquake earthquake = getItem(position);
         if (earthquake != null) {
             magnitudeTextView.setText(formatMagnitude(earthquake.getMagnitude()));
@@ -54,23 +51,23 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             int magnitudeColor = getMagnitudeColor(earthquake.getMagnitude());
             // Set the color on the magnitude circle
             magnitudeCircle.setColor(magnitudeColor);
-            
+
             locationOffsetTextView.setText(formatLocationOffset(earthquake.getPlace()));
             primaryLocationTextView.setText(formatPrimaryLocation(earthquake.getPlace()));
-            
+
             Date earthquakeDate = new Date(earthquake.getDate());
-            
+
             dateTextView.setText(formatDate(earthquakeDate));
             timeTextView.setText(formatTime(earthquakeDate));
         }
-        
+
         return listItemView;
     }
-    
+
     private int getMagnitudeColor(double magnitude) {
         int magnitudeFloor = (int) Math.floor(magnitude);
         int magnitudeColorResourceId;
-        
+
         switch (magnitudeFloor) {
             case 0:
             case 1:
@@ -103,10 +100,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             default:
                 magnitudeColorResourceId = R.color.magnitude10plus;
         }
-        
+
         return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
     }
-    
+
     /**
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
@@ -114,7 +111,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy", Locale.getDefault());
         return dateFormat.format(dateObject);
     }
-    
+
     /**
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
@@ -122,7 +119,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         return timeFormat.format(dateObject);
     }
-    
+
     /**
      * Return the formatted magnitude string showing 1 decimal place (i.e. "3.2")
      * from a decimal magnitude value.
@@ -131,28 +128,28 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         DecimalFormat formatter = new DecimalFormat("0.0");
         return formatter.format(magnitude);
     }
-    
+
     private String formatLocationOffset(String place) {
         if (place.length() == 0) {
             return "";
         }
-        
+
         if (place.contains(LOCATION_SEPARATOR)) {
             return place.substring(0, place.indexOf(LOCATION_SEPARATOR) + LOCATION_SEPARATOR.length());
         }
-        
+
         return getContext().getString(R.string.near_the);
     }
-    
+
     private String formatPrimaryLocation(String place) {
         if (place.length() == 0) {
             return "";
         }
-        
+
         if (place.contains(LOCATION_SEPARATOR)) {
             return place.substring(place.indexOf(LOCATION_SEPARATOR) + LOCATION_SEPARATOR.length(), place.length());
         }
-        
+
         return place;
     }
 }

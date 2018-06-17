@@ -8,7 +8,7 @@ public class Earthquake {
     private String place;
     private long time;
     private String url;
-    
+
     /**
      * Constructs a new {@link Earthquake} object.
      *
@@ -23,19 +23,19 @@ public class Earthquake {
         this.time = time;
         this.url = url;
     }
-    
+
     public double getMagnitude() {
         return magnitude;
     }
-    
+
     public String getPlace() {
         return place;
     }
-    
+
     public long getDate() {
         return time;
     }
-    
+
     public String getUrl() {
         return url;
     }
